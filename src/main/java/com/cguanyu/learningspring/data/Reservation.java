@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "RESERVATION")
 public class Reservation {
@@ -19,7 +21,7 @@ public class Reservation {
     @Column(name = "GUEST_ID")
     private long guestId;
     @Column(name = "RES_DATE")
-    private long reservationDate;
+    private Date reservationDate;
 
     public long getReservationId() {
         return reservationId;
@@ -45,11 +47,11 @@ public class Reservation {
         this.guestId = guestId;
     }
 
-    public long getReservationDate() {
+    public Date getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(long reservationDate) {
+    public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
     }
 

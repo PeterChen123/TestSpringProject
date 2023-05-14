@@ -13,11 +13,21 @@ import com.cguanyu.learningspring.data.Reservation;
 import com.cguanyu.learningspring.data.ReservationRepository;
 import com.cguanyu.learningspring.data.Room;
 import com.cguanyu.learningspring.data.RoomRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReservationService {
-    private RoomRepository roomRepository;
-    private GuestRepository guestRepository;
-    private ReservationRepository reservationRepository;
+    private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
+    private final ReservationRepository reservationRepository;
+
+    public ReservationService(RoomRepository roomRepository,
+                              GuestRepository guestRepository,
+                              ReservationRepository reservationRepository) {
+        this.roomRepository = roomRepository;
+        this.guestRepository = guestRepository;
+        this.reservationRepository = reservationRepository;
+    }
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
         Iterable<Room> rooms = this.roomRepository.findAll();
