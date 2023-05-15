@@ -1,12 +1,5 @@
 package com.cguanyu.learningspring.business;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.cguanyu.learningspring.data.Guest;
 import com.cguanyu.learningspring.data.GuestRepository;
 import com.cguanyu.learningspring.data.Reservation;
@@ -14,6 +7,13 @@ import com.cguanyu.learningspring.data.ReservationRepository;
 import com.cguanyu.learningspring.data.Room;
 import com.cguanyu.learningspring.data.RoomRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReservationService {
@@ -31,7 +31,7 @@ public class ReservationService {
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
         Iterable<Room> rooms = this.roomRepository.findAll();
-        Map<Long, RoomReservation> roomReservationMap = new HashMap();
+        Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
         rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getId());
@@ -62,6 +62,19 @@ public class ReservationService {
             }
         });
         return roomReservations;
+    }
+
+    public List<Guest> getHotelGuests() {
+        Iterable<Guest> guests = this.guestRepository.findAll();
+        List<Guest> guestList = new ArrayList<>();
+        guests.forEach(guest -> guestList.add(guest));
+        guestList.sort((o1, o2) -> {
+            if (o1.getLastName().equals(o2.getLastName())) {
+                return o1.getFirstName().compareTo(o2.getFirstName());
+            }
+            return o1.getLastName().compareTo(o2.getLastName());
+        });
+        return guestList;
     }
 }
 
