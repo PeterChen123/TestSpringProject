@@ -2,6 +2,7 @@ package com.cguanyu.learningspring.course.jdbc;
 
 import com.cguanyu.learningspring.data.Room;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,12 @@ public class CourseJdbcRepository {
             where ROOM_ID = ?
             """;
 
+    private static String SELECT_QUERY =
+            """
+            select * from room
+            where ROOM_ID = ?
+            """;
+
     @Autowired
     private JdbcTemplate springJdbcTemplate;
 
@@ -29,5 +36,11 @@ public class CourseJdbcRepository {
 
     public void deleteById(long id) {
         springJdbcTemplate.update(DELETE_QUERY, id);
+    }
+
+    public Room findById(long id) {
+        // ResultSet -> Bean -> Row Mapper
+        return springJdbcTemplate.queryForObject(SELECT_QUERY,
+                new BeanPropertyRowMapper<>(Room.class), id);
     }
 }
