@@ -21,6 +21,15 @@ public class Room {
     @Column(name = "BED_INFO")
     private String bedInfo;
 
+    public Room() {}
+
+    public Room(long id, String name, String roomNumber, String bedInfo) {
+        this.id = id;
+        this.name = name;
+        this.roomNumber = roomNumber;
+        this.bedInfo = bedInfo;
+    }
+
     public long getId() {
         return id;
     }
